@@ -3,25 +3,35 @@ import { usersRouter } from "./routes/users";
 import mongoose from "mongoose";
 
 export const app: Application = express();
-const db = 'mongodb+srv://forsyterun:C6oTJ8IchNbIE65D@jewerly.eum5syn.mongodb.net/?retryWrites=true&w=majority'
+const URL = 'mongodb+srv://forsyterun:C6oTJ8IchNbIE65D@jewerly.eum5syn.mongodb.net/?retryWrites=true&w=majority'
 
-mongoose.connect(db).then((res) => {
+mongoose.connect(URL).then(() => {
   console.log('success');
 }).catch((err) => {
   console.log('error connect');
-  
 })
 
-const jsonBodyMiddleware = express.json();
-app.use(jsonBodyMiddleware);
+// mongoose.connection.db
+//   .listCollections()
+//   .toArray()
+//   .then((collections) => {
+//     const collList = collections.map((el) => el.name);
+//     console.log("Collections in the database:", collList);
+//   })
+//   .catch((err) => {
+//     console.error("Error listing collections:", err);
+//   });
 
-export let count = 0;
+// const jsonBodyMiddleware = express.json();
+// app.use(jsonBodyMiddleware);
 
-const countMiddleware = (req: any, res: any, next: any) => {
-  count++;
-  next();
-};
+// export let count = 0;
 
-app.use(countMiddleware);
+// const countMiddleware = (req: any, res: any, next: any) => {
+//   count++;
+//   next();
+// };
+
+// app.use(countMiddleware);
 
 app.use("/users", usersRouter);
