@@ -17,18 +17,29 @@ import { ResGetUserType } from "../types/ResGetUserType";
 import { ResGetUsersType } from "../types/ResGetUsersType";
 import { ResPutUserType } from "../types/ResPutUserType";
 import { ResPostUserType } from "../types/ResPostUserType";
+import { User } from "../model/UserViewModel";
 
 export const usersRouter = Router();
 
 usersRouter.get(
   "/",
-  (req: GetUsersType<UserViewModel>, res: ResGetUsersType) => {
-    const queryParams =
-      Object.keys(req.query).length === 0 ? undefined : req.query;
+ async (req: GetUsersType<UserViewModel>, res: any) => {
 
-    const FoundProducts = userRepositories.filterUsers(queryParams);
+    try {
+      const users = await User.find(); 
+  
+      res.json(users);
+      
+    } catch (error) {
+      // Handle any errors, for example, sending an error response
+      res.status(505)
+    }
+    // const queryParams =
+    //   Object.keys(req.query).length === 0 ? undefined : req.query;
 
-    res.json(FoundProducts);
+    // const FoundProducts = userRepositories.filterUsers(queryParams);
+
+    // res.json(FoundProducts);
   }
 );
 
