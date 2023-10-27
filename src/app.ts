@@ -3,7 +3,7 @@ import { usersRouter } from "./routes/users";
 import mongoose from "mongoose";
 
 export const app: Application = express();
-const URL = 'mongodb+srv://forsyterun:C6oTJ8IchNbIE65D@jewerly.eum5syn.mongodb.net/?retryWrites=true&w=majority'
+const URL = 'mongodb+srv://forsyterun:C6oTJ8IchNbIE65D@jewerly.eum5syn.mongodb.net/jewerly?retryWrites=true&w=majority'
 
 mongoose.connect(URL).then(() => {
   console.log('success');

@@ -19,19 +19,23 @@ import { ResPutUserType } from "../types/ResPutUserType";
 
 export const usersRouter = Router();
 
-// usersRouter.get(
-//   "/",
-//  async (req: GetUsersType<UserViewModel>, res: any) => {
+usersRouter.get(
+  "/",
+ async (req: GetUsersType<UserViewModel>, res: any) => {
 
-//     User.find().than((res: any) => console.log(res))
-//     // const queryParams =
-//     //   Object.keys(req.query).length === 0 ? undefined : req.query;
+    User.find().then((response: any) => {
+      console.log(response)
+      res.json(response)
+    }).catch((err) => console.log('err')
+    )
+    // const queryParams =
+    //   Object.keys(req.query).length === 0 ? undefined : req.query;
 
-//     // const FoundProducts = userRepositories.filterUsers(queryParams);
+    // const FoundProducts = userRepositories.filterUsers(queryParams);
 
-//     // res.json(FoundProducts);
-//   }
-// );
+    // res.json(FoundProducts);
+  }
+);
 
 // usersRouter.get(
 //   "/:id",

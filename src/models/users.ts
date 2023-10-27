@@ -7,8 +7,8 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  age: String,
+  age: Number,
   meta: Number
 })
 
-export const User = new mongoose.Model('user', userSchema)
+export const User = mongoose.model('user', userSchema)
