@@ -1,5 +1,6 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import { registerValidation } from './validations/user.js'
 import {validationResult} from 'express-validator'
@@ -29,19 +30,23 @@ app.post('/login', (req, res) => {
   res.json(token)
 })
 
-app.post('/register', registerValidation, (req, res) => {
+app.post('/register', registerValidation, async (req, res) => {
   const errors = validationResult(req)
 
   if (!errors.isEmpty()) {
     return res.status(422).json({errors: errors.array()})
   }
 
+  const password = req.body.password
+  const salt = await bcrypt.genSalt(10)
+  const passwordHash = await bcrypt.hash(password, salt)
+
   const doc = new UserModel({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: passwordHash
   })
-  
+
   res.status(200).json({success: true})
 
 })
