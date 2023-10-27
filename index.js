@@ -1,4 +1,5 @@
 import express from 'express'
+import jwt from 'jsonwebtoken'
 
 const app = express()
 
@@ -9,11 +10,16 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  console.log(req.body);
-  res.json({success: true})
+
+  const token  = jwt.sign({
+    email: req.body.email,
+    name: req.body.name
+  }, 'secret')
+
+  res.json(token)
 })
 
-app.listen(4444, (err) => {
+app.listen(4444, (err) => {     
   if (err) {
     console.log(err);
   } 
