@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 import { registerValidation } from './validations/user.js'
 import {validationResult} from 'express-validator'
-import UserModel from './models/user.ts'
+import UserModel from './models/user.js'
 
 const app = express()
 
@@ -47,7 +47,9 @@ app.post('/register', registerValidation, async (req, res) => {
     password: passwordHash
   })
 
-  res.status(200).json({success: true})
+  const user = await doc.save()
+
+  res.status(200).json(user)
 
 })
 
